@@ -1,0 +1,125 @@
+import com.amazonaws.auth.policy.Policy
+import com.amazonaws.auth.policy.Principal
+import com.amazonaws.auth.policy.Statement
+import com.amazonaws.auth.policy.actions.S3Actions
+import com.amazonaws.auth.policy.resources.S3BucketResource
+import com.amazonaws.auth.policy.resources.S3ObjectResource
+import com.amazonaws.services.s3.model.ObjectMetadata
+
+import jp.classmethod.aws.gradle.s3.AmazonS3FileUploadTask
+import jp.classmethod.aws.gradle.s3.BucketPolicyTask
+import jp.classmethod.aws.gradle.s3.CreateBucketTask
+import jp.classmethod.aws.gradle.s3.DeleteBucketTask
+
+apply plugin: "java"
+apply plugin: "jp.classmethod.aws"
+apply plugin: "jp.classmethod.aws.s3"
+apply plugin: "jp.classmethod.aws.cloudformation"
+
+// ---------------------------------------------------------------------
+// configuration:
+
+sourceCompatibility = 1.8
+
+ext {
+    awsSdkVersion = '2.0.0-preview-1'
+}
+
+group 'mbaas-sample'
+version '1.0.0'
+
+aws {
+    // Profile name at {drive}:\Users\{userName}\.aws\credentials
+    profileName = "default"
+    // Region code that we want to use
+    region = "eu-west-1"
+}
+
+// name of bucket that we want to create on AWS (must be unique in our region)
+def myBucketName = 'my-gradle-bucket-232342342'
+// jar location on project
+def jarLocation = 'build/libs/'
+
+jar {
+    baseName = 'mbaas-sample'
+    version = '1.0.0'
+}
+
+// ---------------------------------------------------------------------
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "software.amazon.awssdk:dynamodb:${awsSdkVersion}"
+    compile "software.amazon.awssdk:s3:${awsSdkVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "jp.classmethod.aws:gradle-aws-plugin:0.+"
+    }
+}
+
+// ---------------------------------------------------------------------
+// S3 tasks
+
+task createBucket(type: CreateBucketTask) {
+    bucketName myBucketName
+    // one of http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region values
+    region aws.region
+    // create bucket only if it does not exist, otherwise skip ecs jakins
+    ifNotExists true
+}
+
+task deleteBucket(type: DeleteBucketTask) {
+    bucketName myBucketName
+    ifExists true
+    deleteObjects true
+}
+
+task uploadContent(type: AmazonS3FileUploadTask, dependsOn: createBucket) {
+
+    file file(jarLocation + jar.baseName + "-" + jar.version + ".jar") // must be an existing file
+    bucketName myBucketName
+
+    // jar name after uploading to S3
+    key jar.baseName + "-" + jar.version + ".jar"
+
+    def m = new ObjectMetadata()
+    m.setCacheControl("no-cache, no-store")
+    objectMetadata = m
+}
+
+task setBucketPolicy(type: BucketPolicyTask, dependsOn: createBucket) {
+    bucketName myBucketName
+    policy new Policy().withStatements(
+            new Statement(Statement.Effect.Allow)
+                    .withPrincipals(Principal.AllUsers)
+                    .withActions(S3Actions.GetObject)
+                    .withResources(new S3ObjectResource(myBucketName, "*")),
+            new Statement(Statement.Effect.Allow)
+                    .withPrincipals(Principal.AllUsers)
+                    .withActions(S3Actions.ListObjects)
+                    .withResources(new S3BucketResource(myBucketName))
+    )
+}
+
+// ---------------------------------------------------------------------
+// CloudFormation configuration
+cloudFormation {
+    stackName 'myCloudFormationStack'
+    capabilityIam true
+    templateFile project.file("src/main/resources/my-cloudformation.template")
+    templateBucket myBucketName
+    templateKeyPrefix 'template/'
+}
+
+// ---------------------------------------------------------------------

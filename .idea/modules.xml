@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mbaas-sample.iml" filepath="$PROJECT_DIR$/.idea/modules/mbaas-sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mbaas-sample_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mbaas-sample_main.iml" group="mbaas-sample" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mbaas-sample_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mbaas-sample_test.iml" group="mbaas-sample" />
+    </modules>
+  </component>
+</project>
