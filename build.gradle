@@ -29,14 +29,17 @@ group 'mbaas-sample'
 version '1.0.0'
 
 aws {
+
     // Profile name at {drive}:\Users\{userName}\.aws\credentials
     profileName = "default"
+
     // Region code that we want to use
     region = "eu-west-1"
+
 }
 
 // name of bucket that we want to create on AWS (must be unique in our region)
-def myBucketName = 'my-gradle-bucket-232342342'
+def myBucketName = 'mbaas-sample-bucket'
 // jar location on project
 def jarLocation = 'build/libs/'
 
@@ -71,7 +74,10 @@ buildscript {
 // ---------------------------------------------------------------------
 // S3 tasks
 
+def files =  fileTree("src/main/resources/templates").filter { it.isFile() }.files.name
+
 task createBucket(type: CreateBucketTask) {
+
     bucketName myBucketName
     // one of http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region values
     region aws.region
@@ -85,9 +91,10 @@ task deleteBucket(type: DeleteBucketTask) {
     deleteObjects true
 }
 
-task uploadContent(type: AmazonS3FileUploadTask, dependsOn: createBucket) {
+task uploadJarToS3(type: AmazonS3FileUploadTask, dependsOn: createBucket) {
 
     file file(jarLocation + jar.baseName + "-" + jar.version + ".jar") // must be an existing file
+
     bucketName myBucketName
 
     // jar name after uploading to S3
@@ -112,12 +119,37 @@ task setBucketPolicy(type: BucketPolicyTask, dependsOn: createBucket) {
     )
 }
 
+files.each{ templateName ->
+        task("${templateName}ToS3", type: AmazonS3FileUploadTask, dependsOn: createBucket){
+            bucketName myBucketName
+
+//        println files.getAt(i)
+            file file("src/main/resources/templates/" + templateName)
+            key "templates/" + templateName
+
+            def m = new ObjectMetadata()
+            m.setCacheControl("no-cache, no-store")
+            objectMetadata = m
+        }
+}
+
+task uploadAllToS3 {
+
+    dependsOn << uploadJarToS3
+
+    for (int i = 0; i < files.size(); i++) {
+        dependsOn << files.getAt(i) + "ToS3"
+    }
+
+}
+
 // ---------------------------------------------------------------------
 // CloudFormation configuration
+
 cloudFormation {
     stackName 'myCloudFormationStack'
     capabilityIam true
-    templateFile project.file("src/main/resources/my-cloudformation.template")
+    templateFile project.file("src/main/resources/templates/mbaas_1_0_0.template")
     templateBucket myBucketName
     templateKeyPrefix 'template/'
 }
