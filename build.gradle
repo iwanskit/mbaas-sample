@@ -147,7 +147,7 @@ task uploadAllToS3 {
 // CloudFormation configuration
 
 cloudFormation {
-    stackName 'myCloudFormationStack'
+    stackName 'mbaasCloudFormationStack'
     capabilityIam true
     templateFile project.file("src/main/resources/templates/mbaas_1_0_0.template")
     templateBucket myBucketName
