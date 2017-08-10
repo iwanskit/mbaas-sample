@@ -74,14 +74,12 @@ buildscript {
 // ---------------------------------------------------------------------
 // S3 tasks
 
-def files =  fileTree("src/main/resources/templates").filter { it.isFile() }.files.name
-
 task createBucket(type: CreateBucketTask) {
 
     bucketName myBucketName
     // one of http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region values
     region aws.region
-    // create bucket only if it does not exist, otherwise skip ecs jakins
+    // create bucket only if it does not exist, otherwise skip
     ifNotExists true
 }
 
@@ -119,11 +117,12 @@ task setBucketPolicy(type: BucketPolicyTask, dependsOn: createBucket) {
     )
 }
 
+def files =  fileTree("src/main/resources/templates").filter { it.isFile() }.files.name
+
 files.each{ templateName ->
         task("${templateName}ToS3", type: AmazonS3FileUploadTask, dependsOn: createBucket){
             bucketName myBucketName
 
-//        println files.getAt(i)
             file file("src/main/resources/templates/" + templateName)
             key "templates/" + templateName
 
