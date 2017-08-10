@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8881d97b-1dd2-429b-8cc9-871d505bbfe8" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
     </list>
@@ -56,8 +57,8 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="155" column="59" lean-forward="false" selection-start-line="155" selection-start-column="59" selection-end-line="155" selection-end-column="59" />
+            <state relative-caret-position="735">
+              <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -636,32 +637,6 @@
               <item name="mbaas-sample" type="b2602c69:ProjectViewProjectNode" />
               <item name="mbaas-sample" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
-            <path>
-              <item name="mbaas-sample" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mbaas-sample" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mbaas-sample" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mbaas-sample" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="mbaas-sample" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mbaas-sample" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mbaas-sample" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mbaas-sample" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -924,7 +899,7 @@
       <workItem from="1502111117992" duration="3111000" />
       <workItem from="1502181157916" duration="16853000" />
       <workItem from="1502267326109" duration="19630000" />
-      <workItem from="1502353570159" duration="30000" />
+      <workItem from="1502353570159" duration="2204000" />
     </task>
     <task id="LOCAL-00001" summary="upload template'ów do S3">
       <created>1502282844731</created>
@@ -940,11 +915,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502284532335</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="poprawka niepotrzebnych linijek">
+      <created>1502353624015</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1502353624015</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101097000" />
+    <option name="totallyTimeSpent" value="103271000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -997,7 +979,8 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="upload template'ów do S3" />
-    <option name="LAST_COMMIT_MESSAGE" value="upload template'ów do S3" />
+    <MESSAGE value="poprawka niepotrzebnych linijek" />
+    <option name="LAST_COMMIT_MESSAGE" value="poprawka niepotrzebnych linijek" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1371,8 +1354,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="155" column="59" lean-forward="false" selection-start-line="155" selection-start-column="59" selection-end-line="155" selection-end-column="59" />
+        <state relative-caret-position="735">
+          <caret line="35" column="24" lean-forward="false" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -1431,7 +1414,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>mbaas-sample_main|mbaas-sample</last-edited>
+          <last-edited>mbaas-sample</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

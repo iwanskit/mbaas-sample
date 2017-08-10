@@ -29,13 +29,11 @@ group 'mbaas-sample'
 version '1.0.0'
 
 aws {
-
     // Profile name at {drive}:\Users\{userName}\.aws\credentials
     profileName = "default"
 
     // Region code that we want to use
     region = "eu-west-1"
-
 }
 
 // name of bucket that we want to create on AWS (must be unique in our region)
@@ -75,7 +73,6 @@ buildscript {
 // S3 tasks
 
 task createBucket(type: CreateBucketTask) {
-
     bucketName myBucketName
     // one of http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region values
     region aws.region
@@ -90,7 +87,6 @@ task deleteBucket(type: DeleteBucketTask) {
 }
 
 task uploadJarToS3(type: AmazonS3FileUploadTask, dependsOn: createBucket) {
-
     file file(jarLocation + jar.baseName + "-" + jar.version + ".jar") // must be an existing file
 
     bucketName myBucketName
@@ -133,13 +129,11 @@ files.each{ templateName ->
 }
 
 task uploadAllToS3 {
-
     dependsOn << uploadJarToS3
 
     for (int i = 0; i < files.size(); i++) {
         dependsOn << files.getAt(i) + "ToS3"
     }
-
 }
 
 // ---------------------------------------------------------------------
