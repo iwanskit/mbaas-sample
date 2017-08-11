@@ -192,6 +192,7 @@ task uploadTemplates {
 }*/
 
 
+/*
 task uploadTemplates {
     cloudFormation {
         templateFile project.file("src/main/resources/templates/mbaas_0_0_1.template")
@@ -204,4 +205,4 @@ task uploadTemplates2 {
         templateFile project.file("src/main/resources/templates/mbaas_1_0_0.template")
     }
     dependsOn << awsCfnValidateTemplateUrl
-}
+}*/
