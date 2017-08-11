@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8881d97b-1dd2-429b-8cc9-871d505bbfe8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/mbaas_1_0_0.template" afterPath="$PROJECT_DIR$/src/main/resources/templates/mbaas_1_0_0.template" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/mbaas_0_0_1.template" afterPath="$PROJECT_DIR$/src/main/resources/templates/mbaas_0_0_1.template" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -78,17 +77,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mbaas_0_0_1.template" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mbaas_0_0_1.template" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mbaas_0_0_1.template">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="23" column="11" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="1" />
+            <state relative-caret-position="0">
+              <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mbaas_1_0_0.template" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mbaas_1_0_0.template" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mbaas_1_0_0.template">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="523">
@@ -628,9 +627,9 @@
         <option value="$PROJECT_DIR$/src/main/resources/stackpolicy.json" />
         <option value="$PROJECT_DIR$/src/main/resources/my-cloudformation.template" />
         <option value="$PROJECT_DIR$/build/resources/main/templates/mbaas_0_0_1.template" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/mbaas_0_0_1.template" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/mbaas_1_0_0.template" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/mbaas_0_0_1.template" />
       </list>
     </option>
   </component>
@@ -1003,7 +1002,7 @@
       <workItem from="1502267326109" duration="19630000" />
       <workItem from="1502353570159" duration="9083000" />
       <workItem from="1502382273938" duration="2838000" />
-      <workItem from="1502435690413" duration="4127000" />
+      <workItem from="1502435690413" duration="4743000" />
     </task>
     <task id="LOCAL-00001" summary="upload template'ów do S3">
       <created>1502282844731</created>
@@ -1089,11 +1088,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502440393761</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="poprawka niepotrzebnych linijek">
+      <created>1502444500058</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1502444500058</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117115000" />
+    <option name="totallyTimeSpent" value="117731000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1515,18 +1521,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mbaas_0_0_1.template">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="23" column="11" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mbaas_1_0_0.template">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="523">
           <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/mbaas_0_0_1.template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
           <folding />
         </state>
       </provider>
