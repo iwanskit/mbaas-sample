@@ -131,7 +131,7 @@ files.each{ templateName ->
 task uploadAllToS3 {
     dependsOn << uploadJarToS3
 
-    for (int i = 0; i < files.size(); i++) {
+   for (int i = 0; i < files.size(); i++) {
         dependsOn << files.getAt(i) + "ToS3"
     }
 }
@@ -142,9 +142,66 @@ task uploadAllToS3 {
 cloudFormation {
     stackName 'mbaasCloudFormationStack'
     capabilityIam true
-    templateFile project.file("src/main/resources/templates/mbaas_1_0_0.template")
+    templateFile project.file("src/main/resources/templates/mbaas_0_0_1.template")
+
     templateBucket myBucketName
-    templateKeyPrefix 'template/'
+    templateKeyPrefix 'templates'
 }
 
 // ---------------------------------------------------------------------
+
+
+/*task validateAllTemplates(dependsOn: createBucket) {
+    dependsOn << uploadJarToS3
+
+    for (int i = 0; i < files.size(); i++) {
+        cloudFormation {
+            stackName 'mbaasCloudFormationStack'
+            capabilityIam true
+            templateFile project.file("src/main/resources/templates/" + files.getAt(i))
+            templateBucket myBucketName
+            templateKeyPrefix 'templates'
+        }
+
+        println "TEST: " + files.getAt(i)
+        dependsOn << awsCfnUploadTemplate
+        //awsCfnValidateTemplateUrl.execute()
+
+    }
+}*/
+
+
+
+/*files.each{ templateName ->
+    task("${templateName}Validate", dependsOn: createBucket){
+        cloudFormation {
+            templateFile project.file("src/main/resources/templates/${templateName}")
+        }
+        dependsOn << awsCfnUploadTemplate
+        dependsOn << awsCfnValidateTemplateUrl
+    }
+}
+
+task uploadTemplates {
+    dependsOn << uploadJarToS3
+
+    for (int i = 0; i < files.size(); i++) {
+        dependsOn << files.getAt(i) + "Validate"
+    }
+
+}*/
+
+
+task uploadTemplates {
+    cloudFormation {
+        templateFile project.file("src/main/resources/templates/mbaas_0_0_1.template")
+    }
+    dependsOn << awsCfnValidateTemplateUrl
+}
+
+task uploadTemplates2 {
+    cloudFormation {
+        templateFile project.file("src/main/resources/templates/mbaas_1_0_0.template")
+    }
+    dependsOn << awsCfnValidateTemplateUrl
+}
