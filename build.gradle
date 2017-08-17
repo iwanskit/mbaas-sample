@@ -170,8 +170,6 @@ cloudFormation {
     }
 }*/
 
-
-
 /*files.each{ templateName ->
     task("${templateName}Validate", dependsOn: createBucket){
         cloudFormation {
@@ -190,7 +188,6 @@ task uploadTemplates {
     }
 
 }*/
-
 
 /*
 task uploadTemplates {
