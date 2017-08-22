@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8881d97b-1dd2-429b-8cc9-871d505bbfe8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/api_gateway_2.template" afterPath="$PROJECT_DIR$/src/main/resources/templates/api_gateway_2.template" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -1012,7 +1011,7 @@
       <workItem from="1503040278500" duration="11306000" />
       <workItem from="1503216414172" duration="5296000" />
       <workItem from="1503300470114" duration="20680000" />
-      <workItem from="1503386518197" duration="6538000" />
+      <workItem from="1503386518197" duration="6545000" />
     </task>
     <task id="LOCAL-00001" summary="upload template'ów do S3">
       <created>1502282844731</created>
@@ -1175,11 +1174,18 @@
       <option name="project" value="LOCAL" />
       <updated>1503390580728</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="testy template">
+      <created>1503393940423</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1503393940423</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176791000" />
+    <option name="totallyTimeSpent" value="176798000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
