@@ -1,0 +1,28 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Creates a Cognito User Pool for the Wild Rydes serverless web application workshop",
+    "Parameters": {
+        "WebsiteBucket": {
+            "Type": "String",
+            "Default": "mywebsidebucket-2342342",
+            "Description": "The name for the bucket hosting your website"
+        }
+    },
+    "Resources": {
+        "UserPool": {
+            "Properties": {
+                "Name": "myTestPool"
+            },
+            "Type": "Custom::UserPool"
+        },
+        "UserPoolClient": {
+            "Properties": {
+                "Name": "myTestWebApp",
+                "UserPool": {
+                    "Ref": "UserPool"
+                }
+            },
+            "Type": "Custom::UserPoolClient"
+        }
+    }
+}

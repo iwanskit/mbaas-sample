@@ -37,7 +37,7 @@ aws {
 }
 
 // name of bucket that we want to create on AWS (must be unique in our region)
-def myBucketName = 'mbaas-sample-bucket'
+def myBucketName = 'mybucket-23525231251321'
 // jar location on project
 def jarLocation = 'build/libs/'
 
@@ -142,11 +142,46 @@ task uploadAllToS3 {
 cloudFormation {
     stackName 'mbaasCloudFormationStack'
     capabilityIam true
-    templateFile project.file("src/main/resources/templates/mbaas_0_0_1.template")
+    templateFile project.file("src/main/resources/templates/api_gateway_2.template")
 
     templateBucket myBucketName
     templateKeyPrefix 'templates'
 }
+
+/*task validateAllTemplates1() {
+
+        cloudFormation {
+            stackName 'mbaasCloudFormationStack1'
+            capabilityIam true
+            templateFile project.file("src/main/resources/templates/mbaas_1_1_1.template")
+            templateBucket myBucketName
+            templateKeyPrefix 'templates'
+        }
+
+        //println "TEST: " + files.getAt(i)
+        //dependsOn << awsCfnUploadTemplate
+        //awsCfnValidateTemplateUrl.execute()
+//compileJava.finalizedBy awsCfnMigrateStack
+    dependsOn << awsCfnMigrateStack
+
+}
+
+task validateAllTemplates2() {
+
+    cloudFormation {
+        stackName 'mbaasCloudFormationStack2'
+        capabilityIam true
+        templateFile project.file("src/main/resources/templates/mbaas_1_0_0.template")
+        templateBucket myBucketName
+        templateKeyPrefix 'templates'
+    }
+
+    //println "TEST: " + files.getAt(i)
+    //dependsOn << awsCfnUploadTemplate
+    //awsCfnValidateTemplateUrl.execute()
+    //compileJava.finalizedBy awsCfnMigrateStack
+    dependsOn << awsCfnMigrateStack
+}*/
 
 // ---------------------------------------------------------------------
 
@@ -203,3 +238,4 @@ task uploadTemplates2 {
     }
     dependsOn << awsCfnValidateTemplateUrl
 }*/
+
