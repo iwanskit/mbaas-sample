@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8881d97b-1dd2-429b-8cc9-871d505bbfe8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/api_gateway_3.template" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/api_gateway_view.template" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/mbaas.template" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/web/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/templates/mbaas_2_0_0.template" afterPath="$PROJECT_DIR$/src/main/resources/templates/s3_bucket.template" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/api_gateway_2.template" afterPath="$PROJECT_DIR$/src/main/resources/templates/api_gateway_2.template" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -1053,7 +1046,7 @@
       <workItem from="1503300470114" duration="20680000" />
       <workItem from="1503386518197" duration="24947000" />
       <workItem from="1503473139443" duration="7444000" />
-      <workItem from="1503480828826" duration="4169000" />
+      <workItem from="1503480828826" duration="4576000" />
     </task>
     <task id="LOCAL-00001" summary="upload template'ów do S3">
       <created>1502282844731</created>
@@ -1230,11 +1223,18 @@
       <option name="project" value="LOCAL" />
       <updated>1503393947928</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="testy template">
+      <created>1503485235556</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1503485235556</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206813000" />
+    <option name="totallyTimeSpent" value="207220000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1577,6 +1577,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-41">
           <caret line="173" column="10" lean-forward="true" selection-start-line="173" selection-start-column="10" selection-end-line="173" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1591,6 +1592,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
           <caret line="216" column="0" lean-forward="false" selection-start-line="216" selection-start-column="0" selection-end-line="223" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
