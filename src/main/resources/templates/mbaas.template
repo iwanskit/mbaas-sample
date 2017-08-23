@@ -1,0 +1,426 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Lambda and API Gateway",
+  "Parameters": {
+    "BucketName": {
+      "Type": "String",
+      "Default": "mbaas-23525231251666",
+      "Description": "The bucket name for the web page"
+    }
+  },
+  "Resources": {
+    "WebsiteBucket": {
+      "Properties": {
+        "BucketName": {
+          "Ref": "BucketName"
+        },
+        "WebsiteConfiguration": {
+          "IndexDocument": "index.html"
+        }
+      },
+      "Type": "AWS::S3::Bucket"
+    },
+    "WebsiteBucketPolicy": {
+      "Properties": {
+        "Bucket": {
+          "Ref": "WebsiteBucket"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:GetObject",
+              "Resource": {
+                "Fn::Sub": "arn:aws:s3:::${WebsiteBucket}/*"
+              }
+            }
+          ]
+        }
+      },
+      "Type": "AWS::S3::BucketPolicy"
+    },
+    "myDynamoDBTable" : {
+      "Type" : "AWS::DynamoDB::Table",
+      "Properties" : {
+        "AttributeDefinitions" : [
+          {
+            "AttributeName" : "id",
+            "AttributeType" : "S"
+          }
+        ],
+        "KeySchema" : [
+          {
+            "AttributeName" : "id",
+            "KeyType" : "HASH"
+          }
+        ],
+        "ProvisionedThroughput" : {
+          "ReadCapacityUnits" : "5",
+          "WriteCapacityUnits" : "5"
+        },
+        "TableName" : "BlogPost",
+        "GlobalSecondaryIndexes" : [],
+        "LocalSecondaryIndexes" :[]
+      }
+    },
+    "GetAllBlogPosts": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "mpt-lamdbas",
+          "S3Key": "java/mbaas-sample-1.0.0.zip"
+        },
+        "FunctionName": "GetAllBlogPosts",
+        "Handler": "com.roche.mobile.mbaas.sample.LambdaFunctions::getAllBlogPosts",
+        "MemorySize": 512,
+        "Timeout": 20,
+        "Role": "arn:aws:iam::021152736164:role/lambda_basic_execution",
+        "Runtime": "java8"
+      }
+    },
+    "GetBlogPostById": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "mpt-lamdbas",
+          "S3Key": "java/mbaas-sample-1.0.0.zip"
+        },
+        "FunctionName": "GetBlogPostById",
+        "Handler": "com.roche.mobile.mbaas.sample.LambdaFunctions::getBlogPostById",
+        "MemorySize": 512,
+        "Timeout": 20,
+        "Role": "arn:aws:iam::021152736164:role/lambda_basic_execution",
+        "Runtime": "java8"
+      }
+    },
+    "CreateBlogPost": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "mpt-lamdbas",
+          "S3Key": "java/mbaas-sample-1.0.0.zip"
+        },
+        "FunctionName": "CreateBlogPost",
+        "Handler": "com.roche.mobile.mbaas.sample.LambdaFunctions::createBlogPost",
+        "MemorySize": 512,
+        "Timeout": 20,
+        "Role": "arn:aws:iam::021152736164:role/lambda_basic_execution",
+        "Runtime": "java8"
+      }
+    },
+    "DeleteBlogPost": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "mpt-lamdbas",
+          "S3Key": "java/mbaas-sample-1.0.0.zip"
+        },
+        "FunctionName": "DeleteBlogPost",
+        "Handler": "com.roche.mobile.mbaas.sample.LambdaFunctions::deleteBlogPost",
+        "MemorySize": 512,
+        "Timeout": 20,
+        "Role": "arn:aws:iam::021152736164:role/lambda_basic_execution",
+        "Runtime": "java8"
+      }
+    },
+    "UpdateBlogPost": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "mpt-lamdbas",
+          "S3Key": "java/mbaas-sample-1.0.0.zip"
+        },
+        "FunctionName": "UpdateBlogPost",
+        "Handler": "com.roche.mobile.mbaas.sample.LambdaFunctions::updateBlogPost",
+        "MemorySize": 512,
+        "Timeout": 20,
+        "Role": "arn:aws:iam::021152736164:role/lambda_basic_execution",
+        "Runtime": "java8"
+      }
+    },
+    "RestApi": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "myMbaasAPI"
+      }
+    },
+    "BlogPostModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "ContentType": "application/json",
+        "Name": "BlogPost",
+        "RestApiId": {
+          "Ref": "RestApi"
+        },
+        "Schema": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "title": "BlogPost",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "versionId": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "content": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      }
+    },
+    "BlogPostsModel": {
+      "Type": "AWS::ApiGateway::Model",
+      "Properties": {
+        "ContentType": "application/json",
+        "Name": "BlogPosts",
+        "RestApiId": {"Ref": "RestApi"},
+        "Schema": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "title": "BlogPosts",
+          "type": "array",
+          "items": {
+            "$ref": {"Fn::Join": ["", ["https://apigateway.amazonaws.com/restapis/", {"Ref": "RestApi"}, "/models/", {"Ref": "BlogPostModel"}]]}
+          }
+        }
+      }
+    },
+    "BlogPostsResource": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {"Ref": "RestApi"},
+        "ParentId": {"Fn::GetAtt": ["RestApi", "RootResourceId"]},
+        "PathPart": "blogPosts"
+      }
+    },
+    "LambdaPermissionGetAllBlogPosts": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:invokeFunction",
+        "FunctionName": {"Fn::GetAtt": ["GetAllBlogPosts", "Arn"]},
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {"Fn::Join": ["",
+          ["arn:aws:execute-api:", {"Ref": "AWS::Region"}, ":", {"Ref": "AWS::AccountId"}, ":", {"Ref": "RestApi"}, "/*"]
+        ]}
+      }
+    },
+    "LambdaPermissionGetBlogPostById": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:invokeFunction",
+        "FunctionName": {"Fn::GetAtt": ["GetBlogPostById", "Arn"]},
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {"Fn::Join": ["",
+          ["arn:aws:execute-api:", {"Ref": "AWS::Region"}, ":", {"Ref": "AWS::AccountId"}, ":", {"Ref": "RestApi"}, "/*"]
+        ]}
+      }
+    },
+    "LambdaPermissionCreateBlogPost": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:invokeFunction",
+        "FunctionName": {"Fn::GetAtt": ["CreateBlogPost", "Arn"]},
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {"Fn::Join": ["",
+          ["arn:aws:execute-api:", {"Ref": "AWS::Region"}, ":", {"Ref": "AWS::AccountId"}, ":", {"Ref": "RestApi"}, "/*"]
+        ]}
+      }
+    },
+    "LambdaPermissionDeleteBlogPost": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:invokeFunction",
+        "FunctionName": {"Fn::GetAtt": ["DeleteBlogPost", "Arn"]},
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {"Fn::Join": ["",
+          ["arn:aws:execute-api:", {"Ref": "AWS::Region"}, ":", {"Ref": "AWS::AccountId"}, ":", {"Ref": "RestApi"}, "/*"]
+        ]}
+      }
+    },
+    "LambdaPermissionUpdateBlogPost": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:invokeFunction",
+        "FunctionName": {"Fn::GetAtt": ["UpdateBlogPost", "Arn"]},
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {"Fn::Join": ["",
+          ["arn:aws:execute-api:", {"Ref": "AWS::Region"}, ":", {"Ref": "AWS::AccountId"}, ":", {"Ref": "RestApi"}, "/*"]
+        ]}
+      }
+    },
+    "BlogPostsGet": {
+      "DependsOn": "LambdaPermissionGetAllBlogPosts",
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": { "Ref": "RestApi" },
+        "ResourceId": {"Ref": "BlogPostsResource"},
+        "HttpMethod": "GET",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {"Fn::Join" : ["",
+            ["arn:aws:apigateway:", {"Ref": "AWS::Region"}, ":lambda:path/2015-03-31/functions/", {"Fn::GetAtt": ["GetAllBlogPosts", "Arn"]}, "/invocations"]
+          ]},
+          "IntegrationResponses": [{
+            "StatusCode": 200
+          }]
+        },
+        "MethodResponses": [{
+          "StatusCode": 200
+        }]
+      }
+    },
+    "BlogPostsPut": {
+      "DependsOn": "LambdaPermissionCreateBlogPost",
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": { "Ref": "RestApi" },
+        "ResourceId": {"Ref": "BlogPostsResource"},
+        "HttpMethod": "POST",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {"Fn::Join" : ["",
+            ["arn:aws:apigateway:", {"Ref": "AWS::Region"}, ":lambda:path/2015-03-31/functions/", {"Fn::GetAtt": ["CreateBlogPost", "Arn"]}, "/invocations"]
+          ]},
+          "IntegrationResponses": [{
+            "StatusCode": 200
+          }],
+          "RequestTemplates": {
+            "application/json": {"Fn::Join" : ["", [
+              "{",
+              "\"author\": \"$input.path('$.author')\",",
+              "\"content\": \"$input.path('$.content')\"",
+              "}"
+            ]]}
+          }
+        },
+        "MethodResponses": [{
+          "StatusCode": 200
+        }]
+      }
+    },
+    "BlogPostsResourceById": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {"Ref": "RestApi"},
+        "ParentId": {"Ref": "BlogPostsResource"},
+        "PathPart": "{id}"
+      }
+    },
+    "BlogPostsByIdGet": {
+      "DependsOn": "LambdaPermissionGetBlogPostById",
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": { "Ref": "RestApi" },
+        "ResourceId": {"Ref": "BlogPostsResourceById"},
+        "HttpMethod": "GET",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {"Fn::Join" : ["",
+            ["arn:aws:apigateway:", {"Ref": "AWS::Region"}, ":lambda:path/2015-03-31/functions/", {"Fn::GetAtt": ["GetBlogPostById", "Arn"]}, "/invocations"]
+          ]},
+          "IntegrationResponses": [{
+            "StatusCode": 200
+          }],
+          "RequestTemplates": {
+            "application/json": {"Fn::Join" : ["", [
+              "{",
+              "\"id\": \"$input.params('id')\"",
+              "}"
+            ]]}
+          }
+        },
+        "MethodResponses": [{
+          "StatusCode": 200
+        }]
+      }
+    },
+    "BlogPostsByIdDelete": {
+      "DependsOn": "LambdaPermissionDeleteBlogPost",
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": { "Ref": "RestApi" },
+        "ResourceId": {"Ref": "BlogPostsResourceById"},
+        "HttpMethod": "DELETE",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {"Fn::Join" : ["",
+            ["arn:aws:apigateway:", {"Ref": "AWS::Region"}, ":lambda:path/2015-03-31/functions/", {"Fn::GetAtt": ["DeleteBlogPost", "Arn"]}, "/invocations"]
+          ]},
+          "IntegrationResponses": [{
+            "StatusCode": 200
+          }],
+          "RequestTemplates": {
+            "application/json": {"Fn::Join" : ["", [
+              "{",
+              "\"id\": \"$input.params('id')\"",
+              "}"
+            ]]}
+          }
+        },
+        "MethodResponses": [{
+          "StatusCode": 200
+        }]
+      }
+    },
+    "BlogPostsByIdUpdate": {
+      "DependsOn": "LambdaPermissionUpdateBlogPost",
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": { "Ref": "RestApi" },
+        "ResourceId": {"Ref": "BlogPostsResourceById"},
+        "HttpMethod": "POST",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {"Fn::Join" : ["",
+            ["arn:aws:apigateway:", {"Ref": "AWS::Region"}, ":lambda:path/2015-03-31/functions/", {"Fn::GetAtt": ["UpdateBlogPost", "Arn"]}, "/invocations"]
+          ]},
+          "IntegrationResponses": [{
+            "StatusCode": 200
+          }],
+          "RequestTemplates": {
+            "application/json": {"Fn::Join" : ["", [
+              "#set($inputRoot = $input.path('$'))",
+              "{",
+              "#foreach($field in $inputRoot.keySet())",
+              "\"$field\": \"$util.escapeJavaScript($inputRoot.get($field))\",",
+              "#end",
+              "\"id\": \"$input.params('id')\"",
+              "}"
+            ]]}
+          }
+        },
+        "MethodResponses": [{
+          "StatusCode": 200
+        }]
+      }
+    },
+    "ApiDeployment": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "DependsOn": ["BlogPostsPut","BlogPostsGet","BlogPostsByIdGet","BlogPostsByIdDelete","BlogPostsByIdUpdate"],
+      "Properties": {
+        "RestApiId": {"Ref": "RestApi"},
+        "StageName": "v1"
+      }
+    }
+  }
+}

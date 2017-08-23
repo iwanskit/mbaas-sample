@@ -4,8 +4,8 @@
   "Parameters": {
     "BucketName": {
       "Type": "String",
-      "Default": "mybucket-23525231251666",
-      "Description": "The name for the bucket hosting your website"
+      "Default": "mbaas-23525231251666",
+      "Description": "The name for the mbaas bucket"
     }
   },
   "Resources": {
